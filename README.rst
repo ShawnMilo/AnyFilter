@@ -14,7 +14,8 @@ following functionality:
 The intent is to create a subclass of the ``Filter`` class in any case where custom
 code has to be written. This keeps the custom code out of the primary 
 workflow and codebase, and allows ``Filter`` subclasses to be inserted and toggled
-as needed.
+as needed, while storing configurations for the filters outside the codebase
+and the applications's primary database for portability and ease of maintenance.
 
 Motivation
 ==========
