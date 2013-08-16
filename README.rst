@@ -23,9 +23,16 @@ The problem which led to this solution is the need to consume data from
 end users. Usually, and especially when the users are clients, this data can
 not be relied upon to meet the input specifications of your system. 
 
-This usually leads to either having to pre-process the data before import or 
-adding a bunch of ``if`` statements, or other similar logic. Also, there is
-often a custom transformation per client, so these solutions do not scale well.
+This usually leads one of these sub-optimal solutions:
+
+* Have custom scripts to pre-process data per client
+* Adding a bunch of ``if`` statements, or other similar logic to the core product
+* Attempting to make transformation scripts generic enough to re-use, thus
+  making them less useful for their primary purpose and harder to debug
+* Hard-coding data into transformation scripts
+
+There is often a custom transformation per client or project, 
+so these solutions do not scale well.
 
 The goals of |af| are:
 
