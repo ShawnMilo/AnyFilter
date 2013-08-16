@@ -1,5 +1,9 @@
 .. |af| replace:: AnyFilter
 
+====
+|af|
+====
+
 |af| is a simple base class for defining data filters. It provides the
 following functionality: 
 
@@ -11,13 +15,22 @@ code has to be written. This keeps the custom code out of the primary
 workflow and allows ``Filter`` subclasses to be inserted and toggled
 as needed.
 
-Benefits of using |af|:
+Benefits
+========
 
 * store configurations outside your application's database
 * easily backup and restore configurations
 * easily duplicate configurations across servers
 
-Sample usage:
+Planned features
+================
+
+* Export and import configs
+* Convert configs to and from HTML forms for easy front-end functionality
+* Easily revert to a prior config
+
+Sample usage
+============
 
 .. code-block:: python
 
@@ -90,7 +103,10 @@ Sample usage:
         # Put it back like we found it, just to be good citizens.
         os.environ['FILTER_CONFIG_DIR'] = original_envvar
 
-Sample output::
+Sample output
+=============
+
+::
 
     [{'horse': 'neigh', 'foo': 'bar', 'dog': 'woof', 'cat': 'meow'}]
     [{'equine': 'neigh', 'feline': 'meow', 'canine': 'woof', 'foo': 'bar'}]
