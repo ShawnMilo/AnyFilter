@@ -16,6 +16,24 @@ code has to be written. This keeps the custom code out of the primary
 workflow and codebase, and allows ``Filter`` subclasses to be inserted and toggled
 as needed.
 
+Motivation
+==========
+
+The problem which led to this solution is the need to consume data from
+end users. Usually, and especially when the users are clients, this data can
+not be relied upon to meet the input specifications of your system. 
+
+This usually leads to either having to pre-process the data before import or 
+adding a bunch of ``if`` statements, or other similar logic. Also, there is
+often a custom transformation per client, so these solutions do not scale well.
+
+The goals of |af| are:
+
+* Minimize the amount of custom code in the primary codebase
+* Store configurations outside the application's database in a portable format
+* Allow updates of configuration data without deploying code (privileged users
+  may even edit a configuration via some sort of GUI)
+
 Benefits
 ========
 
