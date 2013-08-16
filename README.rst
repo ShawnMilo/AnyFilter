@@ -61,7 +61,10 @@ Sample usage:
         original_envvar = os.environ.get('FILTER_CONFIG_DIR', '')
         os.environ['FILTER_CONFIG_DIR'] = '/tmp'
 
-        # instantiate subclass
+        # Instantiate subclass. The only argument is the uid of the subject
+        # of the filter. For example, if you need to store different rules
+        # per user of your site, you might use the user's primary key here.
+        # This allows storage of configs per filter *and* per user.
         name_filter = NameFilter('foo')
 
         # Set some filter items. This will only update the config the first time
