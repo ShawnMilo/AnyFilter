@@ -30,6 +30,7 @@ Planned features
 * Export and import configs
 * Convert configs to and from HTML forms for easy front-end functionality
 * Easily revert to a prior config
+* Comprehensive unit tests
 
 Sample usage
 ============
@@ -49,12 +50,18 @@ Sample usage
     class NameFilter(Filter):
 
         """
-        A filter that changes the names of dictionary keys.
+        A filter that changes the names of dictionary keys. 
 
         'data' should be an iterable of dictionaries
         """
 
         def __call__(self, data):
+            
+            """
+            The contents of this function are the least-important part of
+            this demo. This is where you custom code will go, doing whatever
+            it is you need with whatever config format and content you need.
+            """
 
             for rec in data:
 
@@ -83,8 +90,9 @@ Sample usage
         # This allows storage of configs per filter *and* per user.
         name_filter = NameFilter('foo')
 
-        # Set some filter items. This will only update the config the first time
-        # this is run.
+        # Set some filter items. This normally won't be a part of the flow.
+        # It's here for demo purposes. In normal usage, the config would 
+        # already be set and probably rarely updated.
         name_filter.config = {
             'dog': 'canine',
             'cat': 'feline',
