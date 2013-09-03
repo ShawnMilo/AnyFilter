@@ -104,3 +104,31 @@ class Filter(object):
         # write updated config
         with open(self.config_file, 'w') as output:
             output.write(json.dumps(raw))
+
+    def update_config(self, data, user):
+
+        """
+        Accepts a HTML form post data and updates the config dict
+        using the values parsed from it.
+        """
+
+        # This class's name; used to parse POST data.
+        class_name = self.__class__.__name__
+
+        # Extract just the keys from the POST that pertain to this filter.
+        raw = filter(lambda x: x.startswith(class_name), data)
+
+        # Turn key/value pairs into config dict.
+        config = {}
+        for x in range(1, (len(raw) / 2) + 1):
+            key = data["{0}_key{1}".format(class_name, x)].strip()
+            val = data["{0}_val{1}".format(class_name, x)].strip()
+
+            # Ignore empty data.
+            if key == '' or val == '':
+                continue
+
+            config[key] = val
+
+        self.config = config
+        self.save_config(user=user)
