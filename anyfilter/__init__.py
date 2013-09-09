@@ -120,9 +120,21 @@ class Filter(object):
 
         # Turn key/value pairs into config dict.
         config = {}
-        for x in range(1, (len(raw) / 2) + 1):
-            key = data["{0}_key{1}".format(class_name, x)].strip()
-            val = data["{0}_val{1}".format(class_name, x)].strip()
+        for key in raw:
+
+            key_prefix = "{0}_key".format(class_name)
+            val_prefix = "{0}_val".format(class_name)
+
+            if not key.startswith(key_prefix):
+                continue
+
+            # Chop off just the unique part of the key (which should match
+            # the unique part of the value), so key/value pairs can be
+            # made from the POST data.
+            suffix = key.split(key_prefix)[-1] 
+
+            key = data["{0}{1}".format(key_prefix, suffix)].strip()
+            val = data["{0}{1}".format(val_prefix, suffix)].strip()
 
             # Ignore empty data.
             if key == '' or val == '':
