@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='AnyFilter',
-    version='0.03',
+    version='0.05',
     description='Base class for easy filtering of iterable of dictionaries.',
     packages=['anyfilter',],
     license='BSD',

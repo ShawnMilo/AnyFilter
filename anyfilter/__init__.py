@@ -136,10 +136,6 @@ class Filter(object):
             key = data["{0}{1}".format(key_prefix, suffix)].strip()
             val = data["{0}{1}".format(val_prefix, suffix)].strip()
 
-            # Ignore empty data.
-            if key == '' or val == '':
-                continue
-
             config[key] = val
 
         self.config = config
