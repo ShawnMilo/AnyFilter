@@ -27,10 +27,14 @@ class NameFilter(Filter):
                 if key in rec:
                     rec[value] = rec[key]
                     del rec[key]
-                
+
         return data
 
-if __name__ == '__main__':
+def main():
+
+    """
+    Sample usage.
+    """
 
     import os # for dealing with the environment variable manually
 
@@ -63,3 +67,7 @@ if __name__ == '__main__':
 
     # Put it back like we found it, just to be good citizens.
     os.environ['FILTER_CONFIG_DIR'] = original_envvar
+
+if __name__ == '__main__':
+
+    main()

@@ -11,6 +11,12 @@ import json
 
 class Filter(object):
 
+    """
+    This is a base class which handles the configuration
+    stuff for AnyFilter. It can be subclassed and a custom
+    __call__ method can be written. Then it's ready for use.
+    """
+
     def __init__(self, uid):
 
         """
@@ -32,7 +38,7 @@ class Filter(object):
             raise ValueError("FILTER_CONFIG_DIR must be set.")
         if not os.path.isdir(filter_dir):
             raise ValueError("FILTER_CONFIG_DIR is invalid.")
-            
+
         # this is the key to use to find the config
         config_key = "{0}_{1}.json".format(self.__class__.__name__, uid)
         self.config_file = os.path.join(filter_dir, config_key)
@@ -51,14 +57,14 @@ class Filter(object):
                 raw_json = raw.read()
                 try:
                     configs = json.loads(raw_json)
-                except ValueError as ex:
+                except ValueError:
                     # config empty or corrupted; return default
                     return []
 
             return configs
 
         else:
-            return [] 
+            return []
 
     def get_config(self):
 
@@ -71,7 +77,7 @@ class Filter(object):
         if len(config_list) == 0:
             config = {}
         else:
-            # the config_dict has three keys: 
+            # the config_dict has three keys:
             #     config: actual config dict
             #     created_date: date config saved
             #     user: user who saved config
@@ -93,7 +99,7 @@ class Filter(object):
         if self.config == old_config:
             return True
 
-        raw = self.get_raw_config()        
+        raw = self.get_raw_config()
 
         raw.append({
             'created_date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
@@ -116,7 +122,7 @@ class Filter(object):
         class_name = self.__class__.__name__
 
         # Extract just the keys from the POST that pertain to this filter.
-        raw = filter(lambda x: x.startswith(class_name), data)
+        raw = [x for x in data if x.startswith(class_name)]
 
         # Turn key/value pairs into config dict.
         config = {}
@@ -131,7 +137,7 @@ class Filter(object):
             # Chop off just the unique part of the key (which should match
             # the unique part of the value), so key/value pairs can be
             # made from the POST data.
-            suffix = key.split(key_prefix)[-1] 
+            suffix = key.split(key_prefix)[-1]
 
             key = data["{0}{1}".format(key_prefix, suffix)].strip()
             val = data["{0}{1}".format(val_prefix, suffix)].strip()
